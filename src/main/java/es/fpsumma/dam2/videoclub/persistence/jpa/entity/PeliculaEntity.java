@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,10 +24,10 @@ public class PeliculaEntity {
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "genero", nullable = false)
+    @Column(name = "genero")
     private String genero;
 
-    @Column(name = "anio_estreno", nullable = false)
+    @Column(name = "anio_estreno")
     private Integer anio_estreno;
 
     @Column(name = "puntuacion")
@@ -39,6 +39,9 @@ public class PeliculaEntity {
 
     @ManyToMany(mappedBy = "peliculas")
     private List<ActorEntity> actores;
+
+    @OneToMany(mappedBy = "pelicula")
+    private List<AlquilerEntity> alquileres;
 
     // ===== Constructores =====
     public PeliculaEntity(Long id, String titulo, String genero, Integer anio_estreno, Float puntuacion,
@@ -101,6 +104,22 @@ public class PeliculaEntity {
 
     public void setDirector(DirectorEntity director) {
         this.director = director;
+    }
+
+    public List<ActorEntity> getActores() {
+        return actores;
+    }
+
+    public void setActores(List<ActorEntity> actores) {
+        this.actores = actores;
+    }
+
+    public List<AlquilerEntity> getAlquileres() {
+        return alquileres;
+    }
+
+    public void setAlquileres(List<AlquilerEntity> alquileres) {
+        this.alquileres = alquileres;
     }
 
 }

@@ -1,10 +1,13 @@
 package es.fpsumma.dam2.videoclub.persistence.jpa.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,8 +21,11 @@ public class ClienteEntity {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<AlquilerEntity> alquileres;
 
     // ===== Constructores =====//
     public ClienteEntity() {
@@ -54,6 +60,14 @@ public class ClienteEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<AlquilerEntity> getAlquileres() {
+        return alquileres;
+    }
+
+    public void setAlquileres(List<AlquilerEntity> alquileres) {
+        this.alquileres = alquileres;
     }
 
 }

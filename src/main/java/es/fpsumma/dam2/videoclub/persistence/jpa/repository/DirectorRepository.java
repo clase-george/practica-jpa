@@ -14,7 +14,8 @@ public interface DirectorRepository extends JpaRepository<DirectorEntity, Long> 
     @Query("select d from DirectorEntity d where d.nombre = ?1")
     Optional<DirectorEntity> findByNombre(String nombre);
 
-    List<DirectorEntity> findByNombreContainingIgnoreCase(String nombre);
+    @Query("SELECT DISTINCT d FROM DirectorEntity d WHERE UPPER(d.nombre) LIKE UPPER(CONCAT('%', :nombre, '%'))")
+    List<DirectorEntity> findByNombreContainingIgnoreCase(@Param("nombre") String nombre);
 
     // 2) Mismo efecto pero usando @Query con parámetro nombrado
     @Query("SELECT d FROM DirectorEntity d WHERE d.nombre = :nombre")

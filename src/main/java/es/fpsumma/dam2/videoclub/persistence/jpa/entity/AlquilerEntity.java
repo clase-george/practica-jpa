@@ -1,5 +1,7 @@
 package es.fpsumma.dam2.videoclub.persistence.jpa.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,28 +20,28 @@ public class AlquilerEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Long clienteId;
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteEntity cliente;
 
     @ManyToOne
-    @JoinColumn(name = "pelicula_id")
-    private Long peliculaId;
+    @JoinColumn(name = "pelicula_id", nullable = false)
+    private PeliculaEntity pelicula;
 
     @Column(name = "fecha_alquiler", nullable = false)
-    private String fechaAlquiler;
+    private LocalDate fechaAlquiler;
 
     @Column(name = "fecha_devolucion")
-    private String fechaDevolucion;
+    private LocalDate fechaDevolucion;
 
     // ===== Constructores =====//
     public AlquilerEntity() {
     }
 
-    public AlquilerEntity(Long id, Long clienteId, Long peliculaId, String fechaAlquiler,
-            String fechaDevolucion) {
+    public AlquilerEntity(Long id, ClienteEntity cliente, PeliculaEntity pelicula, LocalDate fechaAlquiler,
+            LocalDate fechaDevolucion) {
         this.id = id;
-        this.clienteId = clienteId;
-        this.peliculaId = peliculaId;
+        this.cliente = cliente;
+        this.pelicula = pelicula;
         this.fechaAlquiler = fechaAlquiler;
         this.fechaDevolucion = fechaDevolucion;
     }
@@ -54,34 +56,66 @@ public class AlquilerEntity {
     }
 
     public Long getClienteId() {
-        return clienteId;
+        return cliente != null ? cliente.getId() : null;
     }
 
     public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+        // kept for compatibility: prefer setCliente
     }
 
     public Long getPeliculaId() {
-        return peliculaId;
+        return pelicula != null ? pelicula.getId() : null;
     }
 
     public void setPeliculaId(Long peliculaId) {
-        this.peliculaId = peliculaId;
+        // kept for compatibility: prefer setPelicula
     }
 
     public String getFechaAlquiler() {
-        return fechaAlquiler;
+        return fechaAlquiler != null ? fechaAlquiler.toString() : null;
     }
 
     public void setFechaAlquiler(String fechaAlquiler) {
-        this.fechaAlquiler = fechaAlquiler;
+        this.fechaAlquiler = fechaAlquiler != null ? LocalDate.parse(fechaAlquiler) : null;
     }
 
     public String getFechaDevolucion() {
-        return fechaDevolucion;
+        return fechaDevolucion != null ? fechaDevolucion.toString() : null;
     }
 
     public void setFechaDevolucion(String fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion != null ? LocalDate.parse(fechaDevolucion) : null;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public PeliculaEntity getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(PeliculaEntity pelicula) {
+        this.pelicula = pelicula;
+    }
+
+    public LocalDate getFechaAlquilerLocal() {
+        return fechaAlquiler;
+    }
+
+    public void setFechaAlquilerLocal(LocalDate fechaAlquiler) {
+        this.fechaAlquiler = fechaAlquiler;
+    }
+
+    public LocalDate getFechaDevolucionLocal() {
+        return fechaDevolucion;
+    }
+
+    public void setFechaDevolucionLocal(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
 

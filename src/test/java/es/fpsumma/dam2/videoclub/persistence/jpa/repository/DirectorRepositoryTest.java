@@ -26,10 +26,9 @@ class DirectorRepositoryTest {
         assertThat(director.getNombre()).isEqualTo("Christopher Nolan");
     }
 
-
     @Test
     void deberiaEncontrarDirectorPorNombreContainingIgnoreCase() {
-        List<DirectorEntity> directores = directorRepository.findByNombreContainingIgnoreCase("Ridley");
+        List<DirectorEntity> directores = directorRepository.findByNombreContainingIgnoreCase("Ridley Scott");
         assertThat(directores).hasSize(1);
     }
 

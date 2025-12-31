@@ -2,9 +2,6 @@ package es.fpsumma.dam2.videoclub.persistence.jpa.entity;
 
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
-
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,6 +33,14 @@ public class ActorEntity {
     public ActorEntity(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+    }
+
+    public List<PeliculaEntity> getPeliculas() {
+        return peliculas;
+    }
+
+    public void setPeliculas(List<PeliculaEntity> peliculas) {
+        this.peliculas = peliculas;
     }
 
     // ===== Getters y setters =====//
